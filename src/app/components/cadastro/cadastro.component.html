@@ -1,6 +1,6 @@
 <div fxLayout="row" fxLayoutAlign="center">
   <div fxLayout="column" fxFlex="900px">
-    <form class="mt-60" #clientesfrm="ngForm">
+    <form class="mt-60" #clientesfrm="ngForm" (ngSubmit)="salvar()">
       <mat-card>
         <mat-card-header>
           <mat-card-title>Cadastro de Clientes - Dados Pessoais</mat-card-title>
@@ -10,7 +10,7 @@
             <div fxLayout="column" fxFlex="800px">
               <mat-form-field fxFlex>
                 <mat-label>Nome *</mat-label>
-                <input matInput type="text" name="nome" placeholder="José da Silva" />
+                <input matInput type="text" name="nome" placeholder="José da Silva" [(ngModel)]="cliente.nome"/>
               </mat-form-field>
             </div>
           </div>
@@ -18,7 +18,8 @@
             <div fxLayout="column" fxFlex="800px">
               <mat-form-field fxFlex>
                 <mat-label>Email *</mat-label>
-                <input matInput type="email" name="email" placeholder="Digite seu email ex.: jose@dominio.com" />
+                <input matInput type="email" name="email"
+                        placeholder="Digite seu email ex.: jose@dominio.com" [(ngModel)]="cliente.email"/>
               </mat-form-field>
             </div>
           </div>
@@ -26,7 +27,8 @@
             <div fxLayout="column" fxFlex="400px">
               <mat-form-field fxFlex>
                 <mat-label>CPF *</mat-label>
-                <input matInput type="number" name="cpf" placeholder="Digite seu CPF ex.: 123.456.789-09" />
+                <input matInput type="number" name="cpf"
+                        placeholder="Digite seu CPF ex.: 123.456.789-09" [(ngModel)]="cliente.cpf"/>
               </mat-form-field>
             </div>
           </div>
@@ -34,7 +36,8 @@
             <div fxLayout="column" fxFlex="400px">
               <mat-form-field fxFlex>
                 <mat-label>Data de Nascimento *</mat-label>
-                <input matInput type="date" name="datanascimento" placeholder="Digite sua data de nascimento ex.: 01/01/1980" />
+                <input matInput type="date" name="datanascimento"
+                        placeholder="Digite sua data de nascimento ex.: 01/01/1980" [(ngModel)]="cliente.dataNascimento"/>
               </mat-form-field>
             </div>
           </div>
