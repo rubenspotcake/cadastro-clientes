@@ -51,6 +51,15 @@
               <button mat-icon-button color="primary" (click)="editar(cliente.id)">
                 <mat-icon>edit</mat-icon>
               </button>
+              @if(!cliente.deletando){
+                <button mat-icon-button color="primary" (click)="preparaDeletar(cliente)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              }@else{
+                <button mat-icon-button color="primary" (click)="deletar(cliente)">
+                  <mat-icon>question_mark</mat-icon>
+                </button>
+              }
             </td>
           </ng-container>
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -10,6 +10,7 @@ import { ClienteService } from '../../services/cliente.service';
 import { Cliente } from '../cadastro/cliente';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-consulta',
@@ -29,6 +30,7 @@ export class ConsultaComponent implements OnInit {
   listaClientes: Cliente[] = [];
   columnsToDisplay = ['nascimento', 'nome', 'cpf', 'email', 'acoes'];
   displayedColumns: string[] = this.columnsToDisplay;
+  private snackbar = inject(MatSnackBar);
   constructor(private clienteService: ClienteService,
     private router: Router
   ) { }
@@ -40,7 +42,20 @@ export class ConsultaComponent implements OnInit {
   }
   editar(id?: string) {
     this.router.navigate(['/cadastro'], { queryParams: { id: id } });
-    console.log('Editar cliente: ' + id);
   }
-
+  preparaDeletar(cliente: Cliente) {
+    cliente.deletando = true;
+  }
+  deletar(cliente: Cliente) {
+    if (cliente.id && confirm('Confirma a exclusão do cliente?')) {
+      this.clienteService.excluir(cliente.id);
+      this.mostrarMensagem('Cliente excluído com sucesso!');
+      //
+      this.pesquisar();
+      this.ngOnInit();
+    }
+  }
+  mostrarMensagem(mensagem: string){
+    this.snackbar.open(mensagem, 'X', { duration: 5000 });
+  }
 }

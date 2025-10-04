@@ -5,7 +5,10 @@ export class Cliente{
   nome?: string;
   email?: string;
   cpf?: string;
-  dataNascimento?: Date;
+  dataNascimento?: string;
+  deletando: boolean = false;
+  uf?: string;
+  cidade?: string;
 
   static newCliente(): Cliente {
     let cliente = new Cliente();

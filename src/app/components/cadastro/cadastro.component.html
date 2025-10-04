@@ -27,7 +27,7 @@
             <div fxLayout="column" fxFlex="400px">
               <mat-form-field fxFlex>
                 <mat-label>CPF *</mat-label>
-                <input matInput type="number" name="cpf"
+                <input matInput type="text" name="cpf" mask="000.000.000-00"
                         placeholder="Digite seu CPF ex.: 123.456.789-09" [(ngModel)]="cliente.cpf"/>
               </mat-form-field>
             </div>
@@ -36,29 +36,56 @@
             <div fxLayout="column" fxFlex="400px">
               <mat-form-field fxFlex>
                 <mat-label>Data de Nascimento *</mat-label>
-                <input matInput type="date" name="datanascimento"
+                <input matInput type="text" name="datanascimento" mask="00/00/0000"
                         placeholder="Digite sua data de nascimento ex.: 01/01/1980" [(ngModel)]="cliente.dataNascimento"/>
+              </mat-form-field>
+            </div>
+          </div>
+          <div fxLayout="row" fxLayoutAlign="start" fxLayoutGap="20px">
+            <div fxLayout="column" fxFlex="400px">
+              <mat-form-field fxFlex>
+                <mat-label>UF *</mat-label>
+                <mat-select name="estado" (selectionChange)="carregarMunicipios($event)" [(value)]="cliente.uf">
+                  <mat-option *ngFor="let estado of estados" [value]="estado.sigla">
+                    {{estado.sigla}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div fxLayout="row" fxLayoutAlign="start" fxLayoutGap="20px">
+            <div fxLayout="column" fxFlex="400px">
+              <mat-form-field fxFlex>
+                <mat-label>Cidade *</mat-label>
+                <mat-select name="estado" [(ngModel)]="cliente.cidade">
+                  <mat-option *ngFor="let municipio of municipios" [value]="municipio.nome">
+                    {{municipio.nome}}
+                  </mat-option>
+                </mat-select>
               </mat-form-field>
             </div>
           </div>
         </mat-card-content>
         <mat-card-actions class="mt-20" fxLayout="row" fxLayoutAlign="start">
-          <div fxLayout="row">
-            <div fxLayout="column">
-              <button mat-raised-button color="primary" type="submit" class="ml-5">
-                <mat-icon>save</mat-icon>
-                Salvar
-              </button>
+          @if(!atualizando){
+            <div fxLayout="row">
+              <div fxLayout="column">
+                <button mat-raised-button color="primary" type="submit" class="ml-5">
+                  <mat-icon>save</mat-icon>
+                  Salvar
+                </button>
+              </div>
             </div>
-          </div>
-          <div fxLayout="row">
-            <div fxLayout="column">
-              <button mat-raised-button color="accent" type="submit">
-                <mat-icon>refresh</mat-icon>
-                Atualizar
-              </button>
+          }@else{
+            <div fxLayout="row">
+              <div fxLayout="column">
+                <button mat-raised-button color="accent" type="submit">
+                  <mat-icon>refresh</mat-icon>
+                  Atualizar
+                </button>
+              </div>
             </div>
-          </div>
+          }
           <div fxLayout="row">
             <div fxLayout="column">
               <button mat-raised-button color="warn" type="reset" class="ml-5">
