@@ -25,8 +25,17 @@ export class ClienteService {
       return clientesAux;
     }
 
-    obterPorId(id: string): Cliente | undefined {
-      return undefined;
+    obterPorNome(nome: string): Cliente[] {
+      const todos: Cliente[] = this.obteterTodos();
+      if(nome && nome.trim().length > 0){
+        return todos.filter( c => c.nome && c.nome.toLowerCase().includes(nome.toLowerCase()));
+      }
+      return todos;
+    }
+
+    obterPorId(id: string): Cliente {
+      const todos: Cliente[] = this.obteterTodos();
+      return todos.find( (c => c && c.id === id)) as Cliente;
     }
 
     excluir(id: string): void {
